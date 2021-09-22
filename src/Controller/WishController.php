@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Wish;
 use App\Form\WishType;
 use App\Repository\WishRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -64,8 +65,10 @@ class WishController extends AbstractController
         if ($formWish->isSubmitted()){
             $em = $this->getDoctrine()->getManager();
             $em->persist($wish);
+            $wish->setDateCreated(new \DateTime());
+            $wish->setIsPublished(true);
             $em->flush();
-            // je redirige
+            // je redirig\
             return $this->redirectToRoute('wish');
         }
         return $this->render('wish/add_wish.html.twig',
