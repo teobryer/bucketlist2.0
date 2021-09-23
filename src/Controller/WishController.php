@@ -74,5 +74,31 @@ class WishController extends AbstractController
         return $this->render('wish/add_wish.html.twig',
             ['formWish'=> $formWish->createView()]);
     }
+
+
+
+     /**
+     * @Route("/modifier_wish/{id}", name="modifier_wish")
+     */
+    public function modifier(Wish $wish ,Request $request): Response
+    {
+      //  $wish = new Wish();
+        // associe obj personne au Form.
+        $formWish = $this->createForm(WishType::class,$wish);
+        // hydraté $personne en fct du formulaire
+        $formWish->handleRequest($request);
+        // si le form est validé.
+        if ($formWish->isSubmitted()){
+            $em = $this->getDoctrine()->getManager();
+           
+            $wish->setDateCreated(new \DateTime());
+            $wish->setIsPublished(true);
+            $em->flush();
+            // je redirig\
+            return $this->redirectToRoute('wish');
+        }
+        return $this->render('wish/modifier_wish.html.twig',
+            ['formWish'=> $formWish->createView()]);
+    }
        
 }

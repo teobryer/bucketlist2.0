@@ -18,7 +18,9 @@
       <th scope="col">Titre</th>
       <th scope="col">Description</th>
       <th scope="col">Auteur</th>
+      <th scope="col">Categorie</th>
       <th scope="col">Date</th>
+      <th scope="col"></th>
       <th scope="col"></th>
       <th scope="col"></th>
     </tr>
@@ -33,9 +35,16 @@
       <th scope="row">{{item.title}} </th>
       <td>{{item.description}} </td>
       <td>{{item.author}} </td>
+      <td>{{item.categorie.nom}} </td>
       <td>{{item.dateCreated | date('Y-m-d') }} </td>
       <td><a href="{{ path('wishitem',{ 'id': item.id })  }}">Voir</a></td>
        <td>
+            <a href="{{ path('modifier_wish',{id: item.id}) }}" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+            </a>
+
+        </td>
+            <td>
             <a href="{{ path('delete_wish',{id: item.id}) }}" class="btn btn-danger">
                 <i class="fa fa-trash"></i>
             </a>
